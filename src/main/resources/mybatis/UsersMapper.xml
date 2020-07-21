@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.Users">
+	<!-- mapp thang len entity -->
+	<select id="selectAllUsers" resultType="com.example.mybatis_1.entity.Users">
+		SELECT * FROM "Users";
+	</select>
+	<select id="selectUserById" parameterType="int" resultType="com.example.mybatis_1.entity.Users">
+		SELECT * FROM "Users"
+		WHERE  id = #{id}
+	</select>
+	
+	<select id="filterAllUser" parameterType="com.example.mybatis_1.entity.Filter" resultType="com.example.mybatis_1.entity.Users">
+		SELECT * FROM "Users"
+		 WHERE  address  like '%${searchTerm}%'    OR
+				phone   like  '%${searchTerm}%'    OR
+				email   like  '%${searchTerm}%'    OR 
+				name  	like  '%${searchTerm}%'	
+		 		
+	</select>
+	
+	<insert id="insertUser" parameterType="com.example.mybatis_1.entity.Users">
+		INSERT INTO "Users" (name, email, address, phone  ) VALUES ( #{name},#{email} , #{address}, #{phone});
+	</insert>
+	<delete id="deleteUserById" parameterType="int">
+		DELETE FROM "Users" WHERE id = #{id}
+	</delete>
+	<update id="updateUser" parameterType="com.example.mybatis_1.entity.Users">
+		UPDATE "Users" SET name = #{name},
+		address = #{address},
+		phone = #{phone},
+		email = #{email}
+		WHERE id = #{id};
+	</update>
+	
+	
+</mapper>
+
